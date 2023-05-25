@@ -1,0 +1,13 @@
+version: '3'
+services:
+  shadowsocks:
+    image: $SHADOWSOCKS_VERSION
+    environment:
+      - TZ=$SHADOWSOCKS_TIMEZONE
+      - PASSWORD=$SHADOWSOCKS_PASSWORD
+      - METHOD=aes-256-cfb
+      - ARGS=--fast-open
+    ports:
+      - "$SHADOWSOCKS_PORT:8390"
+      - "$SHADOWSOCKS_PORT:8390/udp"
+    restart: unless-stopped
