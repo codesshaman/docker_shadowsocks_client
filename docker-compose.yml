@@ -1,13 +1,14 @@
-version: '3'
+version: "3"
+
 services:
-  shadowsocks:
+  shadowsocks-client:
     image: $SHADOWSOCKS_VERSION
+    command: ss-local -s $SERVER_ADDR -p $SERVER_PORT -k $PASSWORD -m $METHOD -l 1080 -u
+    container_name: $CONTAINER_NAME
     environment:
-      - TZ=$SHADOWSOCKS_TIMEZONE
-      - PASSWORD=$SHADOWSOCKS_PASSWORD
-      - METHOD=aes-256-cfb
-      - ARGS=--fast-open
+      - SERVER_ADDR=$SERVER_ADDR
+      - SERVER_PORT=$SERVER_PORT
+      - PASSWORD=$PASSWORD
+      - METHOD=$METHOD
     ports:
-      - "$SHADOWSOCKS_PORT:8390"
-      - "$SHADOWSOCKS_PORT:8390/udp"
-    restart: unless-stopped
+      - "$CLIENT_PORT:1080"
