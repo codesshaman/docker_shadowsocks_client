@@ -12,3 +12,14 @@ services:
       - METHOD=$METHOD
     ports:
       - "$CLIENT_PORT:1080"
+    networks:
+      network:
+        ipv4_address: $LOCAL_IP
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: $NETWK_ADDR
+          gateway: $NETWK_GATE
